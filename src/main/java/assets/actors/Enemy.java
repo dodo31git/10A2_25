@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import main.Main;
 import main.Tiles;
+import main.lilC;
 
 public class Enemy extends GameAsset {
 
@@ -40,23 +41,38 @@ public static ArrayList<Enemy> Fast = new ArrayList<>();
     public void update() {
         //Gegner um ein Feld bewegen
         System.out.println("update"+this.getName());
+        if (Main.getNextTile(tile) == null) {
+        doDamage(damage);    
+        }
+        else{
         int deltaX = Main.getNextTile(tile).getX();
         int deltaY = Main.getNextTile(tile).getY();
-                
+
+        
         // ToDo 4 Fälle + null
         if (deltaX != getX()) {
-            this.setX(getX()-1);
+            if (deltaX > getX()) {
+            this.setX(getX()+1);                
+            }
+            else{
+            this.setX(getX()-1);                
+            }
         }
            
         if (deltaY != getY()) {
-            this.setY(getY()-1);
+            if (deltaY > getY()) {
+            this.setY(getY()+1);                 
+            }
+            else{
+            this.setY(getY()-1);                
+            }            
         }
         
        if (deltaX == getX() && deltaY == getY()) {
            tile = Main.getNextTile(tile).getID();
        }
     }
-
+    }
     public int getDamage() {
         return damage;
     }
@@ -104,7 +120,7 @@ public static ArrayList<Enemy> Fast = new ArrayList<>();
     public int getBounty() {
         return bounty;
     }
-    public int doDamage(){  
+    public int doDamage(int damage){  
     return damage;    
     }
 }
