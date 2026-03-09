@@ -113,7 +113,7 @@ public class Tower3 extends GameAsset{
     
     
     public void shoot (Tower3 tower) {
-        ArrayList<Enemy> b =farestEnemys(tower);
+        ArrayList<Enemy> b = farestEnemys(tower);
         for (Enemy e : b) {
             e.healthpoints = e.healthpoints - tower.damage;
         }
