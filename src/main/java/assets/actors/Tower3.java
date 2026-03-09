@@ -57,35 +57,59 @@ public class Tower3 extends GameAsset{
         return g ;
     }
     
+    
+    public boolean tileinrange(Tiles tile, Tower3 tower){
+        boolean g = false;
+        if(abs(tile.getX()+5) <= abs(tower.getX()+tower.range) & abs(tile.getY()+5) <= abs(tower.getY()+tower.range)){
+            g = true;
+        }
+        return g;
+    }
+    
     public ArrayList farestEnemys(Tower3 tower){
+        Enemy en = enemy;
+        int c = 0;
+        boolean g = false;
+        Tiles a = null;
         ArrayList<Enemy> b = new ArrayList<>();
-      //  for (int j = 0; j < Map.Weg.size(); j++) {
-           // Tiles a = Map.map.get(Map.map.size()-i);
-                  Tiles a = null;
-            if (abs(a.getX())<= abs(tower.getX()+tower.range)&abs(a.getX())<= abs(tower.getX()+tower.range)) {
-                for (Enemy e : Enemy.Standard) {
-                    if(e.getX() == a.getX() & e.getY() == a.getY()){
-                        b.add(e);
-                        break;
-                    }
-                }
-                for (Enemy e : Enemy.Fast) {
-                    if(e.getX() == a.getX() & e.getY() == a.getY()){
-                        b.add(e);
-                        break;
-                    }
-                }
-                for (Enemy e : Enemy.Tank) {
-                    if(e.getX() == a.getX() & e.getY() == a.getY()){
-                        b.add(e);
-                        break;
+        for (int j = 0; j < 87; j++) {
+            c = 89-j;
+            for (int k = 0; k < 10; k++) {
+                for (int l = 0; l < 10; l++) {
+                    if (true) {
+                        a = main.Main.lilM[k][l];
+                        if (a.id == c & tileinrange(a,tower)) {
+                            int xt = a.getX();
+                            int yt = a.getY();
+                            for (Enemy e : Enemy.Standard) {
+                                if (e.getX()==xt & e.getY()==yt ) {
+                                    b.add(e);
+                                    g = true;
+                                }
+                            }
+                            for (Enemy e : Enemy.Standard) {
+                                if (e.getX()==xt & e.getY()==yt ) {
+                                    b.add(e);
+                                    g = true;
+                                }
+                            }
+                            for (Enemy e : Enemy.Standard) {
+                                if (e.getX()==xt & e.getY()==yt ) {
+                                    b.add(e);
+                                    g = true;
+                                }
+                            }
+                            if (g) {
+                                break;
+                            }
+                        }
                     }
                 }
             }
-            
-      //  }
+        }
         return b;
     }
+    
     
     
     public void shoot (Tower3 tower) {
