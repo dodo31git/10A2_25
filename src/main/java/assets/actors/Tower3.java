@@ -118,6 +118,10 @@ public class Tower3 extends GameAsset{
         int y2 = en.getY();
         f[0] = (y1-y2)/(x1-x2);
         f[1] = (y1-y2-x2)/(x1-x2)+y2;
+        f[2] = x1;
+        f[3] = y1;
+        f[4] = x2;
+        f[5] = y2;
         return f;
     }
     

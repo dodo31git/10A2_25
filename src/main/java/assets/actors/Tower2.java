@@ -55,13 +55,17 @@ public class Tower2 extends GameAsset{
     }
     
     public double[] shootfunction (Tower tower, Enemy en){
-        double[] f = {0,0};
+        double[] f = {0,0,0,0,0,0};
         int x1 = tower.getX();
         int y1 = tower.getY();
         int x2 = en.getX();
         int y2 = en.getY();
         f[0] = (y1-y2)/(x1-x2);
         f[1] = (y1-y2-x2)/(x1-x2)+y2;
+        f[2] = x1;
+        f[3] = y1;
+        f[4] = x2;
+        f[5] = y2;
         return f;
     }
     
