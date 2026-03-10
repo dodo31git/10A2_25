@@ -110,7 +110,16 @@ public class Tower3 extends GameAsset{
         return b;
     }
     
-    
+    public double[] shootfunction (Tower3 tower, Enemy en){
+        double[] f = {0,0};
+        int x1 = tower.getX();
+        int y1 = tower.getY();
+        int x2 = en.getX();
+        int y2 = en.getY();
+        f[0] = (y1-y2)/(x1-x2);
+        f[1] = (y1-y2-x2)/(x1-x2)+y2;
+        return f;
+    }
     
     public void shoot (Tower3 tower) {
         ArrayList<Enemy> b = farestEnemys(tower);
