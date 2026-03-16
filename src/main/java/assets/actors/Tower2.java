@@ -34,6 +34,7 @@ public class Tower2 extends GameAsset{
         this.level = level;
     }
    
+    // prüfen ob sich ein gegner innerhalb der towerrange befindet    
     public boolean Enemyinrange(Tower2 tower){
         boolean g = false;
         for (Enemy e : Enemy.Standard) {
@@ -53,7 +54,7 @@ public class Tower2 extends GameAsset{
             }
         return g ;
     }
-    
+    //rückgabe der parameter zur gerade der towerschüsse
     public double[] shootfunction (Tower tower, Enemy en){
         double[] f = {0,0,0,0,0,0};
         int x1 = tower.getX();
@@ -68,7 +69,7 @@ public class Tower2 extends GameAsset{
         f[5] = y2;
         return f;
     }
-    
+    // alle gegner in der range erhalten schaden
     public void shoot (Tower2 tower) {
         for (Enemy e : Enemy.Standard) {
                 if(abs(e.getX()) <= abs(tower.getX()+tower.range) & abs(e.getY()) <= abs(tower.getY()+tower.range)){
@@ -86,7 +87,7 @@ public class Tower2 extends GameAsset{
                 }
             }
     }
-    
+    // upgrade des towers mit überschreiben der parameter
     public void upgrade (Tower2 tower) {
         if (tower.level<=3 & money>tower.upgradeCost & flowers>tower.upgradeCostFlowers) {
             int x = tower.level-1;
@@ -100,7 +101,7 @@ public class Tower2 extends GameAsset{
             tower.level = tower.level+1;
         }
     }
-
+    // erstellung eines neuen towers beim placen
     static public void place(int x, int y){
         Tower2 k = new Tower2(x, y, null, "2T"+i+"");
         i = i+1;

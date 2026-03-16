@@ -36,7 +36,7 @@ public class Tower3 extends GameAsset{
         this.range = range;
         this.level = level;
     }
-
+    // prüfen ob sich ein gegner innerhalb der towerrange befindet
     public boolean Enemyinrange(Tower3 tower){
         boolean g = false;
         for (Enemy e : Enemy.Standard) {
@@ -57,7 +57,7 @@ public class Tower3 extends GameAsset{
         return g ;
     }
     
-    
+    // prüfen ob ein bestimmtes tile innerhalb der towerrange liegt
     public boolean tileinrange(Tiles tile, Tower3 tower){
         boolean g = false;
         if(abs(tile.getX()+5) <= abs(tower.getX()+tower.range) & abs(tile.getY()+5) <= abs(tower.getY()+tower.range)){
@@ -65,19 +65,20 @@ public class Tower3 extends GameAsset{
         }
         return g;
     }
-    
+    // prüfen welcher enemy innerhalb der towerrange am weitesten fortgeschritten ist
     public ArrayList farestEnemys(Tower3 tower){
         Enemy en = enemy;
         int c = 0;
         boolean g = false;
         Tiles a = null;
         ArrayList<Enemy> b = new ArrayList<>();
+        //wegtiles nach absteigender id durchgehen
         for (int j = 0; j < 87; j++) {
-            c = 89-j;
             for (int k = 0; k < 10; k++) {
                 for (int l = 0; l < 10; l++) {
-                    if (true) {
+                    if (main.Main.lilM[k][l].id == 89-j) {
                         a = main.Main.lilM[k][l];
+                        // alle gener auf ermitteltem tile finden
                         if (a.id == c & tileinrange(a,tower)) {
                             int xt = a.getX();
                             int yt = a.getY();
@@ -109,7 +110,7 @@ public class Tower3 extends GameAsset{
         }
         return b;
     }
-    
+    //parameter für geraden der turmgeschosse finden
     public double[] shootfunction (Tower3 tower, Enemy en){
         double[] f = {0,0};
         int x1 = tower.getX();
@@ -124,14 +125,14 @@ public class Tower3 extends GameAsset{
         f[5] = y2;
         return f;
     }
-    
+    // gegner schade zufügen
     public void shoot (Tower3 tower) {
         ArrayList<Enemy> b = farestEnemys(tower);
         for (Enemy e : b) {
             e.healthpoints = e.healthpoints - tower.damage;
         }
     }
-    
+    // upgrade des towers mit überschreibung der parameter
     public void upgrade (Tower3 tower) {
         if (tower.level<=3 & money>tower.upgradeCost & flowers>tower.upgradeCostFlowers) {
             int x = tower.level-1;
@@ -145,7 +146,7 @@ public class Tower3 extends GameAsset{
             tower.level = tower.level+1;
         }
     }
-
+    // beim placen neuen tower erstellen
     static public void place(int x, int y){
         Tower3 k = new Tower3(x, y, null, "3T"+i+"");
         i = i+1;
