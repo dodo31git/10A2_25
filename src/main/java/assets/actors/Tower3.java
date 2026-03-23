@@ -8,10 +8,11 @@ import main.Tiles;
 
 public class Tower3 extends GameAsset{
     Enemy enemy = Enemy.Enemy;
-    static int[][] u = {{500,3,20,2,3},{600,3,30,4,4},{1000,4,40,5,7}};
-    int upgradeCost, upgradeCostFlowers, damage, fireRate, range, level;
+    static int[][] u = {{500,3,20,2,3,0},{600,3,30,4,4,0},{1000,4,40,5,7,0}};
+    int upgradeCost, upgradeCostFlowers, damage, fireRate, range, level, modef;
     static int money = 5000;
     static int flowers = 20;
+    static int mango = 2;
     static int i = 0;
     public static ArrayList<Tower3> Towers3 = new ArrayList<>();
     
@@ -23,10 +24,11 @@ public class Tower3 extends GameAsset{
         this.fireRate = 2;
         this.range = 3;
         this.level = 0;
+        this.modef = 0;
         
     }
 
-    public Tower3(int upgradeCost, int upgradeCostFlowers, int damage, int fireRate, int range, int level, int x, int y, ImageIcon img, String name) {
+    public Tower3(int upgradeCost, int upgradeCostFlowers, int damage, int fireRate, int range, int level, int x, int y, int modef, ImageIcon img, String name) {
         super(x, y, img, name);
         this.upgradeCost = upgradeCost;
         this.upgradeCostFlowers = upgradeCostFlowers;
@@ -34,6 +36,7 @@ public class Tower3 extends GameAsset{
         this.fireRate = fireRate;
         this.range = range;
         this.level = level;
+        this.modef = modef;
     }
     // prüfen ob sich ein gegner innerhalb der towerrange befindet
     public boolean Enemyinrange(Tower3 tower){
@@ -126,8 +129,20 @@ public class Tower3 extends GameAsset{
     // gegner schaden zufügen
     public void shoot (Tower3 tower) {
         ArrayList<Enemy> b = farestEnemys(tower);
-        for (Enemy e : b) {
-            e.healthpoints = e.healthpoints - tower.damage;
+        if (tower.modef == 0) {
+            for (Enemy e : b) {
+                e.takeDamage(tower.damage);
+            }
+        }
+        if (tower.modef == 1 /* & en.freeze == 0 */) {
+            for (Enemy e : b) {
+                //e.takeDamageandFreeze(tower.damage/5);
+            }
+        }
+        if (tower.modef == 1 /* & en.freeze == 1 */) {
+            for (Enemy e : b) {
+                e.takeDamage(tower.damage);
+            }
         }
     }
     // upgrade des towers mit überschreibung der parameter
@@ -153,6 +168,21 @@ public class Tower3 extends GameAsset{
         flowers = flowers-u[0][1];
     }
 
+    public void upgradefreeze (Tower3 tower){
+        if (mango >= 1) {
+            boolean g = false;
+            for(Tower3 towers3 : Towers3){
+                if (towers3.modef == 1 & abs(towers3.getX()+5) <= abs(tower.getX()+tower.range) & abs(towers3.getY()+5) <= abs(tower.getY()+tower.range)) {
+                    g = true;
+                }
+            }
+            if (g == false) {
+                tower.modef = 1;
+                mango = mango-1;
+            }
+        }
+    }
+    
     public int getUpgradeCost() {
         return upgradeCost;
     }
