@@ -7,14 +7,12 @@ package main;
 
 import assets.actors.Enemy;
 import assets.actors.Tower;
-import java.util.ArrayList;
-import java.util.List;
+import gamelogic.Ticks;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 import javax.swing.JFrame;
-
+import gamelogic.Ticks;
+import java.util.Random;
 public class Main {
     static int Tickcount = 0;
     static int Tickloop = 1;
@@ -28,8 +26,14 @@ public class Main {
         p.setName("fghjklö");
         System.out.println(p.getName());
 
-
-        // TODO code application logic here
+    public static int wave = 1; 
+    public static double Healthbase = 4000.000;
+    static  Tiles[][] lilM = new Tiles[35][25];
+    
+    public static void main(String[] args) {
+//Vorbereitung Map Erstlleung
+        // TODO code application logic here     
+        Ticks m = new Ticks();
         JFrame f = new JFrame();
         f.setLayout(null);
         f.setSize(1920, 1080);
@@ -39,7 +43,7 @@ public class Main {
         f.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         int a = 40;
 
-        Tiles[][] lilM = new Tiles[35][25];
+       
         for (int i = 0; i < 35; i++) {
 
             for (int j = 0; j < 25; j++) {
@@ -47,7 +51,6 @@ public class Main {
             }
 
         }
-
 //Weg 
         lilM[0][13] = new Tiles(0 * a, 13 * a - 30, 3, false);
         lilM[1][13] = new Tiles(1 * a, 13 * a - 30, 4, false);
@@ -358,91 +361,24 @@ public class Main {
 
     
 
-
-//ScheduledExecutorService runwaves = Executors.newSingleThreadScheduledExecutor();
-        for (int i = 0; i < 3; i++) {
-        Enemy.Standard.add(new Enemy(5,5,50,5,0,0,null,"Standard"));     
-        }
-   /*     for (int i = 0; i < 3; i++) {
-        Tank.add(new Enemy(5,5,50,5,0,0,null,"Tank"));           
-        }
-        for (int i = 0; i < 3; i++) {
-        Fast.add(new Enemy(5,5,50,5,0,0,null,"Fast"));           
-        }  */       
-        Timer timer = new Timer();
-        TimerTask timerTask = new TimerTask() {
-            @Override
-            public void run() {
-            if(Tickloop==41){
-                Tickloop=21;
-            }
-                for (int i = 1; i < Tickloop; i++) {
-                    if (Tickcount % i == 0) {
-                    switch(i){
-                        case 1:                          
-                        break;
-                        case 2: 
-                        break;
-                        case 3:
-                        break;
-                        case 4: 
-                        break;
-                        case 5: 
-                            for (int j = 0; j < Enemy.Fast.size(); j++) {
-                            Enemy.Fast.get(j).update();    
-                            }                           
-                        break;
-                        case 6: 
-                        break;
-                        case 7: 
-                        break;
-                        case 8:
-                            for (int j = 0; j < Enemy.Standard.size(); j++) {
-                            Enemy.Standard.get(j).update();    
-                            }                            
-                        break;
-                        case 9:  
-                        break;
-                        case 10: 
-                        break;    
-                        case 11:   
-                        break;    
-                        case 12: 
-                         for (int j = 0; j < Enemy.Tank.size(); j++) {
-                            Enemy.Tank.get(j).update();  }
-                        break;    
-                        case 13: 
-                        break;    
-                        case 14: 
-                        break;    
-                        case 15: 
-                        break;    
-                        case 16: 
-                        break;
-                        case 17: 
-                        break;
-                        case 18: 
-                        break;    
-                        case 19:
-                        break;
-                        case 20:  
-                        break;
-                    }   
-                    }
-    
-                }
-            Tickcount++; 
-            Tickloop++;
-                if (Enemy.Standard.isEmpty() && Enemy.Fast.isEmpty() && Enemy.Tank.isEmpty()) {        
-        wave++; 
-//waves konfigurieren
+//Runde 1 starten    
+ waves(wave);  
+    }
+    public static void waves(int wave){
+        System.out.println("wave:"+wave);
+        //Je nach wave unterschiedliche Gegner für die jeweilige Runde spawnen
             switch(wave){
+                case 1:
+        for (int i = 0; i < 5; i++) {
+        Enemy.Standard.add(new Enemy(0.2,0,50,5,0,490,null,"Standard"));     
+        }                    
+                break;
                 case 2:
                     for (int i = 0; i < 4; i++) {
-        Enemy.Standard.add(new Enemy(5,5,50,5,0,0,null,"Standard"));                          
+        Enemy.Standard.add(new Enemy(0.2,0,50,5,0,490,null,"Standard"));                          
                     }
                     for (int i = 0; i < 2; i++) {
-        Enemy.Tank.add(new Enemy(5,5,80,5,0,0,null,"Tank"));                          
+        Enemy.Tank.add(new Enemy(0.8,0,80,5,0,490,null,"Tank"));                          
                     }
                 break;
                 case 3:
@@ -462,14 +398,24 @@ public class Main {
                 break;
                 case 10:
                 break;                
-            }        
-//runwaves.schedule(() -> {
-//}, 1200, TimeUnit.MILLISECONDS);    
+            }          
                 }            
-            }
-        };
+            
+        
 
-            timer.scheduleAtFixedRate(timerTask,0, 100);
+
    
-    }       
+        
+    
+//Nächstes Tile bestimmen    
+    public static Tiles getNextTile (int old) {
+        for (int i = 0; i < lilM.length; i++) {
+            for (int j = 0; j < lilM[i].length; j++) {
+                if (lilM[i][j].getID() == old+1) {                   
+                    return lilM[i][j]; 
+                }
+            }
+        }
+        return null;
+    }
 }

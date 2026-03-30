@@ -16,7 +16,7 @@ public class Boss extends Enemy {
     public Boss(int damage, int velocity, int healthpoints, int bounty, int x, int y, ImageIcon img, String name) {
         super(x, y, img, name);
         this.damage = damage;
-        this.velocity = velocity;
+        this.freeze = velocity;
         this.healthpoints = healthpoints;
         this.bounty = bounty;
         this.bountyFlower = 1;

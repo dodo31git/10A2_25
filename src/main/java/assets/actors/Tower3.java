@@ -1,6 +1,7 @@
 
 package assets.actors;
 import assets.GameAsset;
+import gamelogic.Ticks;
 import static java.lang.Math.abs;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
