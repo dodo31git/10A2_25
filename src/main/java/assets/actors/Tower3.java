@@ -43,17 +43,17 @@ public class Tower3 extends GameAsset{
     public boolean Enemyinrange(Tower3 tower){
         boolean g = false;
         for (Enemy e : Enemy.Standard) {
-                if(Math.sqrt((e.getX()-tower.getzX()) * (e.getX()-tower.getzX()) + (e.getY()-tower.getzY()) * (e.getX()-tower.getzX())) <= tower.range){
+                if(Math.sqrt((e.getX()-tower.getX()) * (e.getX()-tower.getX()) + (e.getY()-tower.getY()) * (e.getY()-tower.getY())) <= tower.range){
                     g = true;
                 }
             }
         for (Enemy e : Enemy.Fast) {
-                if(Math.sqrt((e.getX()-tower.getzX()) * (e.getX()-tower.getzX()) + (e.getY()-tower.getzY()) * (e.getX()-tower.getzX())) <= tower.range){
+                if(Math.sqrt((e.getX()-tower.getX()) * (e.getX()-tower.getX()) + (e.getY()-tower.getY()) * (e.getY()-tower.getY())) <= tower.range){
                     g = true;
                 }
             }
         for (Enemy e : Enemy.Tank) {
-                if(Math.sqrt((e.getX()-tower.getzX()) * (e.getX()-tower.getzX()) + (e.getY()-tower.getzY()) * (e.getX()-tower.getzX())) <= tower.range){
+                if(Math.sqrt((e.getX()-tower.getX()) * (e.getX()-tower.getX()) + (e.getY()-tower.getY()) * (e.getY()-tower.getY())) <= tower.range){
                     g = true;
                 }
             }
@@ -63,7 +63,7 @@ public class Tower3 extends GameAsset{
     // prüfen ob ein bestimmtes tile innerhalb der towerrange liegt
     public boolean tileinrange(Tiles tile, Tower3 tower){
         boolean g = false;
-        if(Math.sqrt((tile.getX()-tower.getzX()) * (tile.getX()-tower.getzX()) + (tile.getY()-tower.getzY()) * (tile.getX()-tower.getzX())) <= tower.range){
+        if(Math.sqrt((tile.getX()-tower.getX()) * (tile.getX()-tower.getX()) + (tile.getY()-tower.getY()) * (tile.getX()-tower.getX())) <= tower.range){
             g = true;
         }
         return g;
@@ -173,7 +173,7 @@ public class Tower3 extends GameAsset{
         if (mango >= 1) {
             boolean g = false;
             for(Tower3 towers3 : Towers3){
-                if (towers3.modef == 1 & Math.sqrt((towers3.getX()-tower.getzX()) * (towers3.getX()-tower.getzX()) + (towers3.getY()-tower.getzY()) * (towers3.getX()-tower.getzX())) <= dist) {
+                if (towers3.modef == 1 & Math.sqrt((towers3.getX()-tower.getX()) * (towers3.getX()-tower.getX()) + (towers3.getY()-tower.getY()) * (towers3.getX()-tower.getX())) <= dist) {
                     g = true;
                 }
             }

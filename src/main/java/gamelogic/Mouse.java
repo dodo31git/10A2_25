@@ -13,6 +13,7 @@ public class Mouse {
     boolean placingopen3 = false;
     boolean upgradeopen = false;
     boolean upgradefreeze = false;
+    int tol = 50;
     public void mouseClicked(MouseEvent e){
         int x = e.getX();
         int y = e.getY();
@@ -38,18 +39,18 @@ public class Mouse {
         if(upgradeopen){
             for (Tower t : Tower.Towers1) {
                 // anklicken eines towers mit gewisser toleranzschwelle
-                if(abs(t.getX()+50) <= abs(x) & abs(t.getY()+50) <= abs(y)){
+                if(Math.sqrt((x-t.getX()) * (x-t.getX()) + (y-t.getY()) * (y-t.getY())) <= tol){
                     t.upgrade(t);
                     upgradeopen = false;
                 }
             }
             for (Tower2 t : Tower2.Towers2) {
-                if(abs(t.getX()+50) <= abs(x) & abs(t.getY()+50) <= abs(y)){
+                if(Math.sqrt((x-t.getX()) * (x-t.getX()) + (y-t.getY()) * (y-t.getY())) <= tol){
                     t.upgrade(t);
                 }
             }
             for (Tower3 t : Tower3.Towers3) {
-                if(abs(t.getX()+5) <= abs(x) & abs(t.getY()+5) <= abs(y)){
+                if(Math.sqrt((x-t.getX()) * (x-t.getX()) + (y-t.getY()) * (y-t.getY())) <= tol){
                     t.upgrade(t);
                 }
             }
@@ -58,18 +59,18 @@ public class Mouse {
         if(upgradefreeze){
             for (Tower t : Tower.Towers1) {
                 // anklicken eines towers mit gewisser toleranzschwelle
-                if(abs(t.getX()+50) <= abs(x) & abs(t.getY()+50) <= abs(y)){
+                if(Math.sqrt((x-t.getX()) * (x-t.getX()) + (y-t.getY()) * (y-t.getY())) <= tol){
                     t.upgradefreeze(t);
                     upgradeopen = false;
                 }
             }
             for (Tower2 t : Tower2.Towers2) {
-                if(abs(t.getX()+50) <= abs(x) & abs(t.getY()+50) <= abs(y)){
+                if(Math.sqrt((x-t.getX()) * (x-t.getX()) + (y-t.getY()) * (y-t.getY())) <= tol){
                     t.upgradefreeze(t);
                 }
             }
             for (Tower3 t : Tower3.Towers3) {
-                if(abs(t.getX()+5) <= abs(x) & abs(t.getY()+5) <= abs(y)){
+                if(Math.sqrt((x-t.getX()) * (x-t.getX()) + (y-t.getY()) * (y-t.getY())) <= tol){
                     t.upgradefreeze(t);
                 }
             }

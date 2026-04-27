@@ -15,6 +15,7 @@ public class Tower extends GameAsset {
     static int flowers = 20;
     static int mango = 2;
     static int i = 0;
+    static int dist = 5;
     public static ArrayList<Tower> Towers1 = new ArrayList<>();
     
     public Tower(int x, int y, ImageIcon img, String name) {
@@ -45,17 +46,17 @@ public class Tower extends GameAsset {
         boolean g = false;
         // verschiedene
         for (Enemy e : Enemy.Standard) {
-                if(Math.sqrt((e.getX()-tower.getzX()) * (e.getX()-tower.getzX()) + (e.getY()-tower.getzY()) * (e.getY()-tower.getzY())) <= tower.range){
+                if(Math.sqrt((e.getX()-tower.getX()) * (e.getX()-tower.getX()) + (e.getY()-tower.getY()) * (e.getY()-tower.getY())) <= tower.range){
                     g = true;
                 }
             }
         for (Enemy e : Enemy.Fast) {
-                if(Math.sqrt((e.getX()-tower.getzX()) * (e.getX()-tower.getzX()) + (e.getY()-tower.getzY()) * (e.getY()-tower.getzY())) <= tower.range){
+                if(Math.sqrt((e.getX()-tower.getX()) * (e.getX()-tower.getX()) + (e.getY()-tower.getY()) * (e.getY()-tower.getY())) <= tower.range){
                     g = true;
                 }
             }
         for (Enemy e : Enemy.Tank) {
-                if(Math.sqrt((e.getX()-tower.getzX()) * (e.getX()-tower.getzX()) + (e.getY()-tower.getzY()) * (e.getY()-tower.getzY())) <= tower.range){
+                if(Math.sqrt((e.getX()-tower.getX()) * (e.getX()-tower.getX()) + (e.getY()-tower.getY()) * (e.getY()-tower.getY())) <= tower.range){
                     g = true;
                 }
             }
@@ -66,7 +67,7 @@ public class Tower extends GameAsset {
     // prüfen ob sich ein bestimmtes tile innerhalb der towerrange befindet
     public boolean tileinrange(Tiles tile, Tower tower){
         boolean g = false;
-        if(Math.sqrt((tile.getX()-tower.getzX()) * (tile.getX()-tower.getzX()) + (tile.getY()-tower.getzY()) * (tile.getY()-tower.getzY())) <= tower.range){
+        if(Math.sqrt((tile.getX()-tower.getX()) * (tile.getX()-tower.getX()) + (tile.getY()-tower.getY()) * (tile.getY()-tower.getY())) <= tower.range){
             g = true;
         }
         return g;
@@ -185,7 +186,7 @@ public class Tower extends GameAsset {
         if (mango >= 1) {
             boolean g = false;
             for(Tower towers1 : Towers1){
-                if (towers1.modef == 1 & abs(towers1.getX()+5) <= abs(tower.getX()+tower.range) & abs(towers1.getY()+5) <= abs(tower.getY()+tower.range)) {
+                if (towers1.modef == 1 & Math.sqrt((towers1.getX()-tower.getX()) * (towers1.getX()-tower.getX()) + (towers1.getY()-tower.getY()) * (towers1.getY()-tower.getY())) <= dist) {
                     g = true;
                 }
             }
