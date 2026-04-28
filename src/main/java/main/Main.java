@@ -2,42 +2,37 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License. See LICENSE in the project root for license information.
  *---------------------------------------------------------------------------------------*/
-
 package main;
 
 import assets.actors.Enemy;
 import assets.actors.Tower;
 import gamelogic.Ticks;
-import java.util.Timer;
+import javax.swing.Timer;
 import java.util.TimerTask;
 import javax.swing.JFrame;
 import gamelogic.Ticks;
+import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 import java.util.Random;
+import javax.swing.ImageIcon;
+
 public class Main {
+
     static int Tickcount = 0;
     static int Tickloop = 1;
-    static int wave = 1; 
-    public static Tiles[][] lilM;
+    public static int wave = 1;
+    public static double Healthbase = 4000.000;
+    public static Tiles[][] lilM = new Tiles[35][25];
+    public static ArrayList<Enemy> allenemies = new ArrayList<>();
+    public static lilC c = new lilC();
+
     public static void main(String[] args) {
-        System.out.println("Hello Remote World!");
-
-        Tower p = new Tower(0, 0, null, "Peter");
-        System.out.println(p.getName());
-        p.setName("fghjklö");
-        System.out.println(p.getName());
-
-    //public static int wave = 1; 
-    //public static double Healthbase = 4000.000;
-    //static  Tiles[][] lilM = new Tiles[35][25];
-    
-    
 //Vorbereitung Map Erstlleung
         // TODO code application logic here     
         Ticks m = new Ticks();
         JFrame f = new JFrame();
         f.setLayout(null);
         f.setSize(1920, 1080);
-        lilC c = new lilC();
         f.add(c);
         f.setVisible(true);
         f.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -378,7 +373,6 @@ public class Main {
         
         int a = 40;
 
-       
         for (int i = 0; i < 35; i++) {
 
             for (int j = 0; j < 25; j++) {
@@ -696,60 +690,134 @@ public class Main {
         lilM[24][23] = new Tiles(24 * a, 23 * a, 2, false);
         lilM[25][23] = new Tiles(25 * a, 23 * a, 2, false);
 
-    
-
 //Runde 1 starten    
- waves(wave);  
+        waves(wave);
+        
+        Timer repaintT = new Timer(9, (ActionEvent e) -> {
+            c.repaint();
+        });
+        repaintT.start();
     }
-    public static void waves(int wave){
-        System.out.println("wave:"+wave);
+
+    public static void waves(int wave) {
+        System.out.println("wave:" + wave);
         //Je nach wave unterschiedliche Gegner für die jeweilige Runde spawnen
-            switch(wave){
-                case 1:
-        for (int i = 0; i < 5; i++) {
-        Enemy.Standard.add(new Enemy(0.2,0,50,5,0,490,null,"Standard"));     
-        }                    
+        switch (wave) {
+            case 1:
+                for (int i = 0; i < 5; i++) {
+                    Enemy.Standard.add(new Enemy(0.2, 0, 50, 5, 0, 490, new ImageIcon(Enemy.class.getResource("/Bilder/Anfangsgegner.png")), "Standard"));
+                }
+   for (int i = 0; i < 2; i++) {
+                    Enemy.Tank.add(new Enemy(0.8, 0, 80, 5, 0, 490, new ImageIcon(Enemy.class.getResource("/Bilder/Endgegner.png")), "Tank"));
+                }
+            case 2:
+                for (int i = 0; i < 4; i++) {
+                    Enemy.Standard.add(new Enemy(0.2, 0, 50, 5, 0, 490, new ImageIcon(Enemy.class.getResource("/Bilder/Anfangsgegner.png")), "Standard"));
+                }
+                for (int i = 0; i < 2; i++) {
+                    Enemy.Tank.add(new Enemy(0.8, 0, 200, 5, 0, 490, new ImageIcon(Enemy.class.getResource("/Bilder/Endgegner.png")), "Tank"));
+                }
+   for (int i = 0; i < 2; i++) {
+                    Enemy.Fast.add(new Enemy(0.15, 0, 40, 5, 0, 490, new ImageIcon(Enemy.class.getResource("/Bilder/Bomben_Gegner.png")), "Fast"));
+                }
                 break;
-                case 2:
-                    for (int i = 0; i < 4; i++) {
-        Enemy.Standard.add(new Enemy(0.2,0,50,5,0,490,null,"Standard"));                          
-                    }
-                    for (int i = 0; i < 2; i++) {
-        Enemy.Tank.add(new Enemy(0.8,0,80,5,0,490,null,"Tank"));                          
-                    }
+            case 3:
+               for (int i = 0; i < 7; i++) {
+                    Enemy.Standard.add(new Enemy(0.2, 0, 50, 5, 0, 490, new ImageIcon(Enemy.class.getResource("/Bilder/Anfangsgegner.png")), "Standard"));
+                }
+                for (int i = 0; i < 2; i++) {
+                    Enemy.Tank.add(new Enemy(0.8, 0, 200, 5, 0, 490, new ImageIcon(Enemy.class.getResource("/Bilder/Endgegner.png")), "Tank"));
+                }
+   for (int i = 0; i < 5; i++) {
+                    Enemy.Fast.add(new Enemy(0.15, 0, 40, 5, 0, 490, new ImageIcon(Enemy.class.getResource("/Bilder/Bomben_Gegner.png")), "Fast"));
+                }
                 break;
-                case 3:
-                    System.out.println("yayyyyy");
+            case 4:
+               for (int i = 0; i < 10; i++) {
+                    Enemy.Standard.add(new Enemy(0.2, 0, 50, 5, 0, 490, new ImageIcon(Enemy.class.getResource("/Bilder/Anfangsgegner.png")), "Standard"));
+                }
+                for (int i = 0; i < 3; i++) {
+                    Enemy.Tank.add(new Enemy(0.8, 0, 200, 5, 0, 490, new ImageIcon(Enemy.class.getResource("/Bilder/Endgegner.png")), "Tank"));
+                }
+   for (int i = 0; i < 8; i++) {
+                    Enemy.Fast.add(new Enemy(0.15, 0, 40, 5, 0, 490, new ImageIcon(Enemy.class.getResource("/Bilder/Bomben_Gegner.png")), "Fast"));
+                }               
                 break;
-                case 4:
+            case 5:
+               for (int i = 0; i < 0; i++) {
+                    Enemy.Standard.add(new Enemy(0.2, 0, 50, 5, 0, 490, new ImageIcon(Enemy.class.getResource("/Bilder/Anfangsgegner.png")), "Standard"));
+                }
+                for (int i = 0; i < 1; i++) {
+                    Enemy.Tank.add(new Enemy(0.8, 0, 200, 5, 0, 490, new ImageIcon(Enemy.class.getResource("/Bilder/Endgegner.png")), "Tank"));
+                }
+   for (int i = 0; i < 20; i++) {
+                    Enemy.Fast.add(new Enemy(0.15, 0, 40, 5, 0, 490, new ImageIcon(Enemy.class.getResource("/Bilder/Bomben_Gegner.png")), "Fast"));
+                }                
                 break;
-                case 5:
+            case 6:
+               for (int i = 0; i < 12; i++) {
+                    Enemy.Standard.add(new Enemy(0.2, 0, 50, 5, 0, 490, new ImageIcon(Enemy.class.getResource("/Bilder/Anfangsgegner.png")), "Standard"));
+                }
+                for (int i = 0; i < 5; i++) {
+                    Enemy.Tank.add(new Enemy(0.8, 0, 200, 5, 0, 490, new ImageIcon(Enemy.class.getResource("/Bilder/Endgegner.png")), "Tank"));
+                }
+   for (int i = 0; i < 4; i++) {
+                    Enemy.Fast.add(new Enemy(0.15, 0, 40, 5, 0, 490, new ImageIcon(Enemy.class.getResource("/Bilder/Bomben_Gegner.png")), "Fast"));
+                }                
                 break;
-                case 6:
+            case 7:
+               for (int i = 0; i < 10; i++) {
+                    Enemy.Standard.add(new Enemy(0.2, 0, 50, 5, 0, 490, new ImageIcon(Enemy.class.getResource("/Bilder/Anfangsgegner.png")), "Standard"));
+                }
+                for (int i = 0; i < 6; i++) {
+                    Enemy.Tank.add(new Enemy(0.8, 0, 200, 5, 0, 490, new ImageIcon(Enemy.class.getResource("/Bilder/Endgegner.png")), "Tank"));
+                }
+   for (int i = 0; i < 8; i++) {
+                    Enemy.Fast.add(new Enemy(0.15, 0, 40, 5, 0, 490, new ImageIcon(Enemy.class.getResource("/Bilder/Bomben_Gegner.png")), "Fast"));
+                }                
                 break;
-                case 7:
+            case 8:
+               for (int i = 0; i < 14; i++) {
+                    Enemy.Standard.add(new Enemy(0.2, 0, 50, 5, 0, 490, new ImageIcon(Enemy.class.getResource("/Bilder/Anfangsgegner.png")), "Standard"));
+                }
+                for (int i = 0; i < 4; i++) {
+                    Enemy.Tank.add(new Enemy(0.8, 0, 200, 5, 0, 490, new ImageIcon(Enemy.class.getResource("/Bilder/Endgegner.png")), "Tank"));
+                }
+   for (int i = 0; i < 12; i++) {
+                    Enemy.Fast.add(new Enemy(0.15, 0, 40, 5, 0, 490, new ImageIcon(Enemy.class.getResource("/Bilder/Bomben_Gegner.png")), "Fast"));
+                }                
                 break;
-                case 8:
+            case 9:
+               for (int i = 0; i < 15; i++) {
+                    Enemy.Standard.add(new Enemy(0.2, 0, 50, 5, 0, 490, new ImageIcon(Enemy.class.getResource("/Bilder/Anfangsgegner.png")), "Standard"));
+                }
+                for (int i = 0; i < 5; i++) {
+                    Enemy.Tank.add(new Enemy(0.8, 0, 200, 5, 0, 490, new ImageIcon(Enemy.class.getResource("/Bilder/Endgegner.png")), "Tank"));
+                }
+   for (int i = 0; i < 15; i++) {
+                    Enemy.Fast.add(new Enemy(0.15, 0, 40, 5, 0, 490, new ImageIcon(Enemy.class.getResource("/Bilder/Bomben_Gegner.png")), "Fast"));
+                }                
                 break;
-                case 9:
+            case 10:
+               for (int i = 0; i < 20; i++) {
+                    Enemy.Standard.add(new Enemy(0.2, 0, 50, 5, 0, 490, new ImageIcon(Enemy.class.getResource("/Bilder/Anfangsgegner.png")), "Standard"));
+                }
+                for (int i = 0; i < 8; i++) {
+                    Enemy.Tank.add(new Enemy(0.8, 0, 200, 5, 0, 490, new ImageIcon(Enemy.class.getResource("/Bilder/Endgegner.png")), "Tank"));
+                }
+   for (int i = 0; i < 16; i++) {
+                    Enemy.Fast.add(new Enemy(0.15, 0, 40, 5, 0, 490, new ImageIcon(Enemy.class.getResource("/Bilder/Bomben_Gegner.png")), "Fast"));
+                }                
                 break;
-                case 10:
-                break;                
-            }          
-                }            
-            
-        
+        }
+    }
 
-
-   
-        
-    
 //Nächstes Tile bestimmen    
-    public static Tiles getNextTile (int old) {
+    public static Tiles getNextTile(int old) {
         for (int i = 0; i < lilM.length; i++) {
             for (int j = 0; j < lilM[i].length; j++) {
-                if (lilM[i][j].getID() == old+1) {                   
-                    return lilM[i][j]; 
+                if (lilM[i][j].getID() == old + 1) {
+                    return lilM[i][j];
                 }
             }
         }
