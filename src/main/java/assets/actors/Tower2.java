@@ -1,7 +1,7 @@
 
 package assets.actors;
 import assets.GameAsset;
-import static java.lang.Math.abs;
+import static java.lang.Math.sqrt;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 
@@ -11,6 +11,7 @@ public class Tower2 extends GameAsset{
     static int money = 5000;
     static int flowers = 20;
     static int i = 0;
+    static int dist = 5;
     public static ArrayList<Tower2> Towers2 = new ArrayList<>();
     
     public Tower2(int x, int y, ImageIcon img, String name) {
@@ -37,17 +38,17 @@ public class Tower2 extends GameAsset{
     public boolean Enemyinrange(Tower2 tower){
         boolean g = false;
         for (Enemy e : Enemy.Standard) {
-                if(abs(e.getX()) <= abs(tower.getX()+tower.range) & abs(e.getY()) <= abs(tower.getY()+tower.range)){
+                if(Math.sqrt((e.getX()-tower.getX()) * (e.getX()-tower.getX()) + (e.getY()-tower.getY()) * (e.getY()-tower.getY())) <= tower.range){
                     g = true;
                 }
             }
         for (Enemy e : Enemy.Fast) {
-                if(abs(e.getX()) <= abs(tower.getX()+tower.range) & abs(e.getY()) <= abs(tower.getY()+tower.range)){
+                if(Math.sqrt((e.getX()-tower.getX()) * (e.getX()-tower.getX()) + (e.getY()-tower.getY()) * (e.getY()-tower.getY())) <= tower.range){
                     g = true;
                 }
             }
         for (Enemy e : Enemy.Tank) {
-                if(abs(e.getX()) <= abs(tower.getX()+tower.range) & abs(e.getY()) <= abs(tower.getY()+tower.range)){
+                if(Math.sqrt((e.getX()-tower.getX()) * (e.getX()-tower.getX()) + (e.getY()-tower.getY()) * (e.getY()-tower.getY())) <= tower.range){
                     g = true;
                 }
             }
@@ -55,20 +56,55 @@ public class Tower2 extends GameAsset{
     }
     
     public void shoot (Tower2 tower) {
-        for (Enemy e : Enemy.Standard) {
-                if(abs(e.getX()) <= abs(tower.getX()+tower.range) & abs(e.getY()) <= abs(tower.getY()+tower.range)){
-                    e.healthpoints = e.healthpoints-tower.damage;
-                }
+        if (tower.modef == 0) {
+            for (Enemy e : Enemy.Standard) {
+                    if(Math.sqrt((e.getX()-tower.getX()) * (e.getX()-tower.getX()) + (e.getY()-tower.getY()) * (e.getY()-tower.getY())) <= tower.range){
+                        e.takeDamage(tower.damage);
+                    }
             }
-        for (Enemy e : Enemy.Fast) {
-                if(abs(e.getX()) <= abs(tower.getX()+tower.range) & abs(e.getY()) <= abs(tower.getY()+tower.range)){
-                    e.healthpoints = e.healthpoints-tower.damage;
-                }
+            for (Enemy e : Enemy.Fast) {
+                    if(Math.sqrt((e.getX()-tower.getX()) * (e.getX()-tower.getX()) + (e.getY()-tower.getY()) * (e.getY()-tower.getY())) <= tower.range){
+                        e.takeDamage(tower.damage);
+                    }
             }
-        for (Enemy e : Enemy.Tank) {
-                if(abs(e.getX()) <= abs(tower.getX()+tower.range) & abs(e.getY()) <= abs(tower.getY()+tower.range)){
-                    e.healthpoints = e.healthpoints-tower.damage;
-                }
+            for (Enemy e : Enemy.Tank) {
+                    if(Math.sqrt((e.getX()-tower.getX()) * (e.getX()-tower.getX()) + (e.getY()-tower.getY()) * (e.getY()-tower.getY())) <= tower.range){
+                        e.takeDamage(tower.damage);
+                    }
+            }
+        }
+        if (tower.modef == 1 /* & en.freeze == 0 */) {
+            for (Enemy e : Enemy.Standard) {
+                    if(Math.sqrt((e.getX()-tower.getX()) * (e.getX()-tower.getX()) + (e.getY()-tower.getY()) * (e.getY()-tower.getY())) <= tower.range){
+                        //e.takeDamageandFreeze(tower.damage/5);
+                    }
+            }
+            for (Enemy e : Enemy.Fast) {
+                    if(Math.sqrt((e.getX()-tower.getX()) * (e.getX()-tower.getX()) + (e.getY()-tower.getY()) * (e.getY()-tower.getY())) <= tower.range){
+                        //e.takeDamageandFreeze(tower.damage/5);
+                    }
+            }
+            for (Enemy e : Enemy.Tank) {
+                    if(Math.sqrt((e.getX()-tower.getX()) * (e.getX()-tower.getX()) + (e.getY()-tower.getY()) * (e.getY()-tower.getY())) <= tower.range){
+                        //e.takeDamageandFreeze(tower.damage/5);
+                    }
+            }
+        }
+        if (tower.modef == 1 /* & en.freeze == 1 */) {
+            for (Enemy e : Enemy.Standard) {
+                    if(Math.sqrt((e.getX()-tower.getX()) * (e.getX()-tower.getX()) + (e.getY()-tower.getY()) * (e.getY()-tower.getY())) <= tower.range){
+                        e.takeDamage(tower.damage);
+                    }
+            }
+            for (Enemy e : Enemy.Fast) {
+                    if(Math.sqrt((e.getX()-tower.getX()) * (e.getX()-tower.getX()) + (e.getY()-tower.getY()) * (e.getY()-tower.getY())) <= tower.range){
+                        e.takeDamage(tower.damage);
+                    }
+            }
+            for (Enemy e : Enemy.Tank) {
+                    if(Math.sqrt((e.getX()-tower.getX()) * (e.getX()-tower.getX()) + (e.getY()-tower.getY()) * (e.getY()-tower.getY())) <= tower.range){
+                        e.takeDamage(tower.damage);
+                    }
             }
     }
     
@@ -92,6 +128,21 @@ public class Tower2 extends GameAsset{
         Towers2.add(k);
         money = money-u[0][0];
         flowers = flowers-u[0][1];
+    }
+    
+    public void upgradefreeze (Tower2 tower){
+        if (mango >= 1) {
+            boolean g = false;
+            for(Tower2 towers2 : Towers2){
+                if (towers2.modef == 1 & Math.sqrt((towers2.getX()-tower.getX()) * (towers2.getX()-tower.getX()) + (towers2.getY()-tower.getY()) * (towers2.getY()-tower.getY())) <= dist) {
+                    g = true;
+                }
+            }
+            if (g == false) {
+                tower.modef = 1;
+                mango = mango-1;
+            }
+        }
     }
 
     public int getUpgradeCost() {

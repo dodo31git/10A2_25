@@ -2,7 +2,7 @@
 package assets.actors;
 import assets.GameAsset;
 import gamelogic.Ticks;
-import static java.lang.Math.abs;
+import static java.lang.Math.sqrt;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import main.Tiles;
@@ -14,6 +14,7 @@ public class Tower3 extends GameAsset{
     static int money = 5000;
     static int flowers = 20;
     static int i = 0;
+    static int dist = 5;
     public static ArrayList<Tower3> Towers3 = new ArrayList<>();
     
     public Tower3(int x, int y, ImageIcon img, String name) {
@@ -40,23 +41,32 @@ public class Tower3 extends GameAsset{
     public boolean Enemyinrange(Tower3 tower){
         boolean g = false;
         for (Enemy e : Enemy.Standard) {
-                if(abs(e.getX()+5) <= abs(tower.getX()+tower.range) & abs(e.getY()+5) <= abs(tower.getY()+tower.range)){
+                if(Math.sqrt((e.getX()-tower.getX()) * (e.getX()-tower.getX()) + (e.getY()-tower.getY()) * (e.getY()-tower.getY())) <= tower.range){
                     g = true;
                 }
             }
         for (Enemy e : Enemy.Fast) {
-                if(abs(e.getX()+5) <= abs(tower.getX()+tower.range) & abs(e.getY()+5) <= abs(tower.getY()+tower.range)){
+                if(Math.sqrt((e.getX()-tower.getX()) * (e.getX()-tower.getX()) + (e.getY()-tower.getY()) * (e.getY()-tower.getY())) <= tower.range){
                     g = true;
                 }
             }
         for (Enemy e : Enemy.Tank) {
-                if(abs(e.getX()+5) <= abs(tower.getX()+tower.range) & abs(e.getY()+5) <= abs(tower.getY()+tower.range)){
+                if(Math.sqrt((e.getX()-tower.getX()) * (e.getX()-tower.getX()) + (e.getY()-tower.getY()) * (e.getY()-tower.getY())) <= tower.range){
                     g = true;
                 }
             }
         return g ;
     }
     
+    // prüfen ob ein bestimmtes tile innerhalb der towerrange liegt
+    public boolean tileinrange(Tiles tile, Tower3 tower){
+        boolean g = false;
+        if(Math.sqrt((tile.getX()-tower.getX()) * (tile.getX()-tower.getX()) + (tile.getY()-tower.getY()) * (tile.getX()-tower.getX())) <= tower.range){
+            g = true;
+        }
+        return g;
+    }
+    // prüfen welcher enemy innerhalb der towerrange am weitesten fortgeschritten ist
     public ArrayList farestEnemys(Tower3 tower){
         ArrayList<Enemy> b = new ArrayList<>();
       //  for (int j = 0; j < Map.Weg.size(); j++) {
@@ -117,6 +127,21 @@ public class Tower3 extends GameAsset{
         flowers = flowers-u[0][1];
     }
 
+    public void upgradefreeze (Tower3 tower){
+        if (mango >= 1) {
+            boolean g = false;
+            for(Tower3 towers3 : Towers3){
+                if (towers3.modef == 1 & Math.sqrt((towers3.getX()-tower.getX()) * (towers3.getX()-tower.getX()) + (towers3.getY()-tower.getY()) * (towers3.getX()-tower.getX())) <= dist) {
+                    g = true;
+                }
+            }
+            if (g == false) {
+                tower.modef = 1;
+                mango = mango-1;
+            }
+        }
+    }
+    
     public int getUpgradeCost() {
         return upgradeCost;
     }

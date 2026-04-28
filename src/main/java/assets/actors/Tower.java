@@ -1,7 +1,7 @@
 
 package assets.actors;
 import assets.GameAsset;
-import static java.lang.Math.abs;
+import static java.lang.Math.sqrt;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import gamelogic.Ticks;
@@ -16,6 +16,7 @@ public class Tower extends GameAsset {
     static int money = 5000;
     static int flowers = 20;
     static int i = 0;
+    static int dist = 5;
     public static ArrayList<Tower> Towers1 = new ArrayList<>();
     
     public Tower(int x, int y, ImageIcon img, String name) {
@@ -38,51 +39,76 @@ public class Tower extends GameAsset {
         this.range = range;
         this.level = level;
     }
-
+    
+    
+    // prüfen ob gegner innerhalb der towerrange existieren
     public boolean Enemyinrange(Tower tower){
         boolean g = false;
         for (Enemy e : Enemy.Standard) {
-                if(abs(e.getX()+5) <= abs(tower.getX()+tower.range) & abs(e.getY()+5) <= abs(tower.getY()+tower.range)){
+                if(Math.sqrt((e.getX()-tower.getX()) * (e.getX()-tower.getX()) + (e.getY()-tower.getY()) * (e.getY()-tower.getY())) <= tower.range){
                     g = true;
                 }
             }
         for (Enemy e : Enemy.Fast) {
-                if(abs(e.getX()+5) <= abs(tower.getX()+tower.range) & abs(e.getY()+5) <= abs(tower.getY()+tower.range)){
+                if(Math.sqrt((e.getX()-tower.getX()) * (e.getX()-tower.getX()) + (e.getY()-tower.getY()) * (e.getY()-tower.getY())) <= tower.range){
                     g = true;
                 }
             }
         for (Enemy e : Enemy.Tank) {
-                if(abs(e.getX()+5) <= abs(tower.getX()+tower.range) & abs(e.getY()+5) <= abs(tower.getY()+tower.range)){
+                if(Math.sqrt((e.getX()-tower.getX()) * (e.getX()-tower.getX()) + (e.getY()-tower.getY()) * (e.getY()-tower.getY())) <= tower.range){
                     g = true;
                 }
             }
         return g ;
     }
-    // auf ArrayLists ändern!!!!
+    
+    
+    // prüfen ob sich ein bestimmtes tile innerhalb der towerrange befindet
+    public boolean tileinrange(Tiles tile, Tower tower){
+        boolean g = false;
+        if(Math.sqrt((tile.getX()-tower.getX()) * (tile.getX()-tower.getX()) + (tile.getY()-tower.getY()) * (tile.getY()-tower.getY())) <= tower.range){
+            g = true;
+        }
+        return g;
+    }
+    
+    
+    // den gegner innerhalb der towerrange finden der auf dem weg am weitesten fortgeschritten ist
     public Enemy farestEnemy(Tower tower){
         Enemy en = enemy;
+        boolean g = false;
+        Tiles a = null;
         int c = 0;
         ArrayList<Enemy> b = new ArrayList<>();
-       // for (int j = 0; j < Map.Weg.size(); j++) {
-         //   Tiles a = Map.Weg.get(Map.Weg.size()-i);
-         Tiles a = null;
-            if (abs(a.getX())<= abs(tower.getX()+tower.range)&abs(a.getX())<= abs(tower.getX()+tower.range)) {
-                for (Enemy e : Enemy.Standard) {
-                    if(e.getX() == a.getX() & e.getY() == a.getY()){
-                        b.add(e);
-                        break;
-                    }
-                }
-                for (Enemy e : Enemy.Fast) {
-                    if(e.getX() == a.getX() & e.getY() == a.getY()){
-                        b.add(e);
-                        break;
-                    }
-                }
-                for (Enemy e : Enemy.Tank) {
-                    if(e.getX() == a.getX() & e.getY() == a.getY()){
-                        b.add(e);
-                        break;
+        // tiles vom größten zum kleinsten index durchgehen
+        for (int j = 0; j < 87; j++) {
+            for (int k = 0; k < 10; k++) {
+                for (int l = 0; l < 10; l++) {
+                    if (main.Main.lilM[k][l].id == 89-j) {
+                        a = main.Main.lilM[k][l];
+                        if (tileinrange(a,tower)) {
+                            int xt = a.getX();
+                            int yt = a.getY();
+                            // für ermitteltes tile alle dort befindlichen gegner suchen
+                            for (Enemy e : Enemy.Standard) {
+                                if (e.getX()==xt & e.getY()==yt ) {
+                                    b.add(e);
+                                    g = true;
+                                }
+                            }
+                            for (Enemy e : Enemy.Standard) {
+                                if (e.getX()==xt & e.getY()==yt ) {
+                                    b.add(e);
+                                    g = true;
+                                }
+                            }
+                            for (Enemy e : Enemy.Standard) {
+                                if (e.getX()==xt & e.getY()==yt ) {
+                                    b.add(e);
+                                    g = true;
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -98,6 +124,24 @@ public class Tower extends GameAsset {
     }
     
     
+    // parameter für gerade der towerschüsse finden
+    public double[] shootfunction (Tower tower){
+        double[] f = {0,0,0,0,0,0};
+        int x1 = tower.getX();
+        int y1 = tower.getY();
+        int x2 = farestEnemy(tower).getX();
+        int y2 = farestEnemy(tower).getY();
+        f[0] = (y1-y2)/(x1-x2);
+        f[1] = (y1-y2-x2)/(x1-x2)+y2;
+        f[2] = x1;
+        f[3] = y1;
+        f[4] = x2;
+        f[5] = y2;
+        return f;
+    }
+    
+    
+    // tower die gegner beschädigen lassen
     public void shoot (Tower tower) {
         if (Enemyinrange(tower)) {
             Enemy en = farestEnemy(tower);
@@ -113,6 +157,8 @@ public class Tower extends GameAsset {
         flowers = flowers-u[0][1];
     }
     
+    
+    // upgraden der tower mit überschreiben der parameter
     public void upgrade (Tower tower) {
         if (tower.level<=3 & money>tower.upgradeCost & flowers>tower.upgradeCostFlowers) {
             int x = tower.level-1;
@@ -124,6 +170,21 @@ public class Tower extends GameAsset {
             tower.fireRate = u[x][3];
             tower.range = u[x][4];
             tower.level = tower.level+1;
+        }
+    }
+    
+    public void upgradefreeze (Tower tower){
+        if (mango >= 1) {
+            boolean g = false;
+            for(Tower towers1 : Towers1){
+                if (towers1.modef == 1 & Math.sqrt((towers1.getX()-tower.getX()) * (towers1.getX()-tower.getX()) + (towers1.getY()-tower.getY()) * (towers1.getY()-tower.getY())) <= dist) {
+                    g = true;
+                }
+            }
+            if (g == false) {
+                tower.modef = 1;
+                mango = mango-1;
+            }
         }
     }
     

@@ -5,6 +5,8 @@
  */
 package main;
 
+import assets.GameAsset;
+import assets.actors.Enemy;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -20,7 +22,7 @@ import java.util.List;
  */
 public class lilC extends JPanel {
   
-// Bilder deklarieren 
+
     Image Wiese;
     Image Weg_Waagerecht;
     Image Weg_Senkrecht;
@@ -73,17 +75,15 @@ public class lilC extends JPanel {
           
           
           
-       // Hintergrundgröße festlegen    
+          
           
         super();
         this.setLayout(null);
         this.setSize(1920, 1080);
 
         this.setVisible(true);
-        
-    //Bilder implementieren
-        
-      System.out.println(getClass().getResource("/Bilder/Wiese.png"));
+
+        System.out.println(getClass().getResource("/Bilder/Wiese.png"));
 
         ImageIcon A = new ImageIcon(getClass().getResource("/Bilder/Wiese.png"));
         Wiese = A.getImage();
@@ -190,8 +190,7 @@ public class lilC extends JPanel {
     @Override
     protected void paintComponent(Graphics g
     ) {
-        
-     //Bilder einfügen
+     
      
         //Wiesen
         g.drawImage(Wiese, 0 * a, 0 * a, 120, 120, this); 
@@ -591,6 +590,22 @@ public class lilC extends JPanel {
         g.drawImage(Background, 1400, 0, 520, 1080, this);
         g.drawImage(Sign, 1520, 75, 400, 200, this);
         g.drawImage(oSL, 1400, 0, 600, 50, this);
+        //Gegner malen
+        int counH = 0;
+        for (GameAsset e : Enemy.Standard) {
+            counH++;
+            g.drawImage(e.getImg().getImage(), e.getX()-counH*5-80, e.getY()-120, null);
+        }
+        counH = 0;
+        for (GameAsset e : Enemy.Fast) {
+            counH++;
+            g.drawImage(e.getImg().getImage(), e.getX()-counH*5-80, e.getY()-50, null);
+        }
+        counH = 0;
+        for (GameAsset e : Enemy.Tank) {
+            counH++;
+            g.drawImage(e.getImg().getImage(), e.getX()-counH*5-80, e.getY()-80, null);
+        }        
         
         g.drawImage(Koala1, 1360, 235,260, 300, this);
         g.drawImage(Koala3, 1700, 235, 260, 300, this);
@@ -605,9 +620,7 @@ public class lilC extends JPanel {
         
         g.drawImage(B2, 1390, 870, 275, 160, this);
         g.drawImage(B3, 1645, 870, 275, 160, this);
-        
-        
-        
+     
    
        
        

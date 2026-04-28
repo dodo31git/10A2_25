@@ -44,7 +44,6 @@ public static ArrayList<Enemy> Fast = new ArrayList<>();
         freeze--;    
         }
         else{
-        System.out.println("X:"+this.getX()+"Y:"+this.getY());
         //wenn die Funktion null ist, dann sind Gegner am Ende-> Schaden machen
         if (Main.getNextTile(tile) == null) {
         doDamage(damage);    
@@ -118,7 +117,6 @@ this.freeze = (int)Math.round(help);
         for (int i = 0; i < Standard.size(); i++) {
             if (Standard.get(i).healthpoints <= 0) {
             Standard.remove(i);
-                System.out.println("Standard removed!");
             }    
         }
         for (int i = 0; i < Tank.size(); i++) {
@@ -144,6 +142,21 @@ this.freeze = (int)Math.round(help);
     //Gegner machen Schaden am Ziel
     public void doDamage(double damage){  
     Main.Healthbase-= damage;
+        if (Main.Healthbase <= 0) {
+            System.out.println("You Lose!");   
+            Main.wave = 0;
+            for (int i = 0; i < Standard.size(); i++) {
+             Standard.remove(i);               
+            }
+            for (int i = 0; i < Fast.size(); i++) {
+             Fast.remove(i);               
+            }
+            for (int i = 0; i < Tank.size(); i++) {
+             Tank.remove(i);               
+            }            
+        }
+        else{
         System.out.println("health: "+Main.Healthbase);
+        }
     }
 }
