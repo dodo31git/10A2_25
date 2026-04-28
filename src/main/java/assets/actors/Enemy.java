@@ -108,6 +108,7 @@ public static ArrayList<Enemy> Fast = new ArrayList<>();
         if (healthpoints <= 0) {
         this.die();    
         }
+//Wert zwischen 25 und 50 generieren-> Ticks, langsamere Gegner sind länger freezed        
 Random r = new Random();
 double help = r.nextGaussian(50, 25);
 this.freeze = (int)Math.round(help);

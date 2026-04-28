@@ -2,48 +2,363 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License. See LICENSE in the project root for license information.
  *---------------------------------------------------------------------------------------*/
-
 package main;
 
 import assets.actors.Enemy;
-import assets.actors.Tower;
-import gamelogic.Ticks;
-import java.util.Timer;
-import java.util.TimerTask;
 import javax.swing.JFrame;
 import gamelogic.Ticks;
-import java.util.Random;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
+import javax.swing.JPanel;
+
 public class Main {
-    static int Tickcount = 0;
-    static int Tickloop = 1;
-    static int wave = 1; 
-    public static Tiles[][] lilM;
-    public static void main(String[] args) {
-        System.out.println("Hello Remote World!");
 
-        Tower p = new Tower(0, 0, null, "Peter");
-        System.out.println(p.getName());
-        p.setName("fghjklö");
-        System.out.println(p.getName());
-
-    public static int wave = 1; 
+    public static int wave = 1;
     public static double Healthbase = 4000.000;
-    static  Tiles[][] lilM = new Tiles[35][25];
-    
+    static Tiles[][] lilM = new Tiles[35][25];
+
     public static void main(String[] args) {
 //Vorbereitung Map Erstlleung
         // TODO code application logic here     
-        Ticks m = new Ticks();
+        //Ticks m = new Ticks();
         JFrame f = new JFrame();
+        f.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         f.setLayout(null);
         f.setSize(1920, 1080);
+
+        // Erzeugt Ebenen
+        JLayeredPane lP = new JLayeredPane();
+        lP.setSize(new Dimension(1920, 1080));
+        lP.setLayout(null);
+
         lilC c = new lilC();
-        f.add(c);
+
+        // 5 -> je kleiner die Zahl, desto weiter im Hintergrund
+        lP.add(c, (Object) (5));
+
+        //Label
+        JPanel hilfP1 = new JPanel();
+        hilfP1.setSize(200, 100);
+        hilfP1.setLayout(null);
+        hilfP1.setBounds(1460, 350,300, 295);
+        hilfP1.setOpaque(false);
+
+        JLabel text1 = new JLabel();
+        text1.setBounds(0, 0, hilfP1.getWidth(), hilfP1.getHeight());
+        Font font1 = new Font("Calibri", Font.BOLD, 16);
+        text1.setFont(font1);
+        text1.setForeground(Color.black);
+        text1.setText("Range");
+        text1.setVisible(true);
+
+        
+        JPanel hilfP2 = new JPanel();
+        hilfP2.setSize(200, 100);
+        hilfP2.setLayout(null);
+        hilfP2.setBounds(1630, 350,300, 295);
+        hilfP2.setOpaque(false);
+
+        JLabel text2 = new JLabel();
+        text2.setBounds(0, 0, hilfP2.getWidth(), hilfP2.getHeight());
+        Font font2 = new Font("Calibri", Font.BOLD, 16);
+        text2.setFont(font2);
+        text2.setForeground(Color.black);
+        text2.setText("Splash");
+        text2.setVisible(true);
+        
+        JPanel hilfP3 = new JPanel();
+        hilfP3.setSize(200, 100);
+        hilfP3.setLayout(null);
+        hilfP3.setBounds(1802, 350,300, 295);
+        hilfP3.setOpaque(false);
+
+        JLabel text3 = new JLabel();
+        text3.setBounds(0, 0, hilfP3.getWidth(), hilfP3.getHeight());
+        Font font3 = new Font("Calibri", Font.BOLD, 16);
+        text3.setFont(font3);
+        text3.setForeground(Color.black);
+        text3.setText("Melee");
+        text3.setVisible(true);
+        
+        JPanel hilfP4 = new JPanel();
+        hilfP4.setSize(200, 100);
+        hilfP4.setLayout(null);
+        hilfP4.setBounds(1640, 425,300, 295);
+        hilfP4.setOpaque(false);
+
+        JLabel text4 = new JLabel();
+        text4.setBounds(0, 0, hilfP4.getWidth(), hilfP4.getHeight());
+        Font font4 = new Font("Calibri", Font.BOLD, 12);
+        text4.setFont(font4);
+        text4.setForeground(Color.black);
+        text4.setText("LVL1");
+        text4.setVisible(true);
+        
+        JPanel hilfP5 = new JPanel();
+        hilfP5.setSize(200, 100);
+        hilfP5.setLayout(null);
+        hilfP5.setBounds(1450, 450,300, 295);
+        hilfP5.setOpaque(false);
+
+        JLabel text5 = new JLabel();
+        text5.setBounds(0, 0, hilfP5.getWidth(), hilfP5.getHeight());
+        Font font5 = new Font("Calibri", Font.BOLD, 12);
+        text5.setFont(font5);
+        text5.setForeground(Color.black);
+        text5.setText("Bambusspeer");
+        text5.setVisible(true);
+        
+        JPanel hilfP6 = new JPanel();
+        hilfP6.setSize(200, 100);
+        hilfP6.setLayout(null);
+        hilfP6.setBounds(1450, 550,300, 295);
+        hilfP6.setOpaque(false);
+
+        JLabel text6 = new JLabel();
+        text6.setBounds(0, 0, hilfP6.getWidth(), hilfP6.getHeight());
+        Font font6 = new Font("Calibri", Font.BOLD, 12);
+        text6.setFont(font6);
+        text6.setForeground(Color.black);
+        text6.setText("Doppelbambuspeer");
+        text6.setVisible(true);
+        
+        JPanel hilfP7 = new JPanel();
+        hilfP7.setSize(200, 100);
+        hilfP7.setLayout(null);
+        hilfP7.setBounds(1450, 650,300, 295);
+        hilfP7.setOpaque(false);
+
+        JLabel text7 = new JLabel();
+        text7.setBounds(0, 0, hilfP7.getWidth(), hilfP7.getHeight());
+        Font font7 = new Font("Calibri", Font.BOLD, 12);
+        text7.setFont(font7);
+        text7.setForeground(Color.black);
+        text7.setText("Blasrohr");
+        text7.setVisible(true);
+        
+        JPanel hilfP8 = new JPanel();
+        hilfP8.setSize(200, 100);
+        hilfP8.setLayout(null);
+        hilfP8.setBounds(1450, 668,300, 295);
+        hilfP8.setOpaque(false);
+
+        JLabel text8 = new JLabel();
+        text8.setBounds(0, 0, hilfP8.getWidth(), hilfP8.getHeight());
+        Font font8 = new Font("Calibri", Font.BOLD, 12);
+        text8.setFont(font8);
+        text8.setForeground(Color.black);
+        text8.setText("(schnelle SChüssse)");
+        text8.setVisible(true);
+        
+        JPanel hilfP9 = new JPanel();
+        hilfP9.setSize(200, 100);
+        hilfP9.setLayout(null);
+        hilfP9.setBounds(1620, 450,300, 295);
+        hilfP9.setOpaque(false);
+
+        JLabel text9 = new JLabel();
+        text9.setBounds(0, 0, hilfP9.getWidth(), hilfP9.getHeight());
+        Font font9 = new Font("Calibri", Font.BOLD, 12);
+        text9.setFont(font9);
+        text9.setForeground(Color.black);
+        text9.setText("Smash");
+        text9.setVisible(true);
+       
+        JPanel hilfP10 = new JPanel();
+        hilfP10.setSize(200, 100);
+        hilfP10.setLayout(null);
+        hilfP10.setBounds(1620, 550,300, 295);
+        hilfP10.setOpaque(false);
+
+        JLabel text10 = new JLabel();
+        text10.setBounds(0, 0, hilfP10.getWidth(), hilfP10.getHeight());
+        Font font10 = new Font("Calibri", Font.BOLD, 12);
+        text10.setFont(font10);
+        text10.setForeground(Color.black);
+        text10.setText("Dynamit");
+        text10.setVisible(true);
+        
+        JPanel hilfP11 = new JPanel();
+        hilfP11.setSize(200, 100);
+        hilfP11.setLayout(null);
+        hilfP11.setBounds(1620, 650,300, 295);
+        hilfP11.setOpaque(false);
+
+        JLabel text11 = new JLabel();
+        text11.setBounds(0, 0, hilfP11.getWidth(), hilfP11.getHeight());
+        Font font11 = new Font("Calibri", Font.BOLD, 12);
+        text11.setFont(font11);
+        text11.setForeground(Color.black);
+        text11.setText("Bombe");
+        text11.setVisible(true);
+        
+        
+        JPanel hilfP12 = new JPanel();
+        hilfP12.setSize(200, 100);
+        hilfP12.setLayout(null);
+        hilfP12.setBounds(1780, 450,300, 295);
+        hilfP12.setOpaque(false);
+
+        JLabel text12 = new JLabel();
+        text12.setBounds(0, 0, hilfP12.getWidth(), hilfP12.getHeight());
+        Font font12 = new Font("Calibri", Font.BOLD, 12);
+        text12.setFont(font12);
+        text12.setForeground(Color.black);
+        text12.setText("Punch");
+        text12.setVisible(true);
+        
+        JPanel hilfP13 = new JPanel();
+        hilfP13.setSize(200, 100);
+        hilfP13.setLayout(null);
+        hilfP13.setBounds(1780, 550,300, 295);
+        hilfP13.setOpaque(false);
+
+        JLabel text13 = new JLabel();
+        text13.setBounds(0, 0, hilfP13.getWidth(), hilfP13.getHeight());
+        Font font13 = new Font("Calibri", Font.BOLD, 12);
+        text13.setFont(font13);
+        text13.setForeground(Color.black);
+        text13.setText("Schwert");
+        text13.setVisible(true);
+        
+        JPanel hilfP14 = new JPanel();
+        hilfP14.setSize(200, 100);
+        hilfP14.setLayout(null);
+        hilfP14.setBounds(1770, 650,300, 295);
+        hilfP14.setOpaque(false);
+
+        JLabel text14 = new JLabel();
+        text14.setBounds(0, 0, hilfP14.getWidth(), hilfP14.getHeight());
+        Font font14 = new Font("Calibri", Font.BOLD, 12);
+        text14.setFont(font14);
+        text14.setForeground(Color.black);
+        text14.setText("Schwert&Axt");
+        text14.setVisible(true);
+        
+        JPanel hilfP15 = new JPanel();
+        hilfP15.setSize(200, 100);
+        hilfP15.setLayout(null);
+        hilfP15.setBounds(1640, 520,300, 295);
+        hilfP15.setOpaque(false);
+
+        JLabel text15 = new JLabel();
+        text15.setBounds(0, 0, hilfP15.getWidth(), hilfP15.getHeight());
+        Font font15 = new Font("Calibri", Font.BOLD, 12);
+        text15.setFont(font15);
+        text15.setForeground(Color.black);
+        text15.setText("LVL2");
+        text15.setVisible(true);
+        
+        JPanel hilfP16 = new JPanel();
+        hilfP16.setSize(200, 100);
+        hilfP16.setLayout(null);
+        hilfP16.setBounds(1640, 620,300, 295);
+        hilfP16.setOpaque(false);
+
+        JLabel text16 = new JLabel();
+        text16.setBounds(0, 0, hilfP16.getWidth(), hilfP16.getHeight());
+        Font font16 = new Font("Calibri", Font.BOLD, 12);
+        text16.setFont(font16);
+        text16.setForeground(Color.black);
+        text16.setText("LVL3");
+        text16.setVisible(true);
+        
+        JPanel hilfP17 = new JPanel();
+        hilfP17.setSize(200, 100);
+        hilfP17.setLayout(null);
+        hilfP17.setBounds(1480, 805,300, 295);
+        hilfP17.setOpaque(false);
+
+        JLabel text17 = new JLabel();
+        text17.setBounds(0, 0, hilfP17.getWidth(), hilfP17.getHeight());
+        Font font17 = new Font("Calibri", Font.BOLD, 20);
+        text17.setFont(font17);
+        text17.setForeground(Color.cyan);
+        text17.setText("FREEZE");
+        text17.setVisible(true);
+        
+        JPanel hilfP18 = new JPanel();
+        hilfP18.setSize(200, 100);
+        hilfP18.setLayout(null);
+        hilfP18.setBounds(1730, 805,300, 295);
+        hilfP18.setOpaque(false);
+
+        JLabel text18 = new JLabel();
+        text18.setBounds(0, 0, hilfP18.getWidth(), hilfP18.getHeight());
+        Font font18 = new Font("Calibri", Font.BOLD, 20);
+        text18.setFont(font18);
+        text18.setForeground(Color.green);
+        text18.setText("UPGRADE");
+        text18.setVisible(true);
+        
+        // Text aufs hilfspanel
+        hilfP1.add(text1);
+        hilfP1.setVisible(true);
+        hilfP2.add(text2);
+        hilfP2.setVisible(true);
+        hilfP3.add(text3);
+        hilfP3.setVisible(true);
+        hilfP4.add(text4);
+        hilfP4.setVisible(true);
+        hilfP5.add(text5);
+        hilfP5.setVisible(true);
+        hilfP6.add(text6);          
+        hilfP6.setVisible(true);
+        hilfP7.add(text7);          
+        hilfP7.setVisible(true);
+        hilfP8.add(text8);          
+        hilfP8.setVisible(true);
+        hilfP9.add(text9);          
+        hilfP9.setVisible(true);
+        hilfP10.add(text10);          
+        hilfP10.setVisible(true);
+        hilfP11.add(text11);          
+        hilfP11.setVisible(true);
+        hilfP12.add(text12);          
+        hilfP12.setVisible(true);
+        hilfP13.add(text13);          
+        hilfP13.setVisible(true);
+        hilfP14.add(text14);          
+        hilfP14.setVisible(true);
+        hilfP15.add(text15);          
+        hilfP15.setVisible(true);
+        hilfP16.add(text16);          
+        hilfP16.setVisible(true);
+        hilfP17.add(text17);          
+        hilfP17.setVisible(true);
+        hilfP18.add(text18);          
+        hilfP18.setVisible(true);
+        
+        // hilfspanel auf die ebene 20
+        lP.add(hilfP1, (Object) (20));
+        lP.add(hilfP2, (Object) (20));
+        lP.add(hilfP3, (Object) (20));
+        lP.add(hilfP4, (Object) (20));
+        lP.add(hilfP5, (Object) (20));
+        lP.add(hilfP6, (Object) (20));
+        lP.add(hilfP7, (Object) (20));
+        lP.add(hilfP8, (Object) (20));
+        lP.add(hilfP9, (Object) (20));
+        lP.add(hilfP10, (Object) (20));
+        lP.add(hilfP11, (Object) (20));
+        lP.add(hilfP12, (Object) (20));
+        lP.add(hilfP13, (Object) (20));
+        lP.add(hilfP14, (Object) (20));
+        lP.add(hilfP15, (Object) (20));
+        lP.add(hilfP16, (Object) (20));
+        lP.add(hilfP17, (Object) (20));
+        lP.add(hilfP18, (Object) (20));
+        
+        lP.setVisible(true);
+
+        f.add(lP);
         f.setVisible(true);
-        f.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
         int a = 40;
 
-       
         for (int i = 0; i < 35; i++) {
 
             for (int j = 0; j < 25; j++) {
@@ -359,60 +674,53 @@ public class Main {
         lilM[24][23] = new Tiles(24 * a, 23 * a, 2, false);
         lilM[25][23] = new Tiles(25 * a, 23 * a, 2, false);
 
-    
-
 //Runde 1 starten    
- waves(wave);  
+        waves(wave);
     }
-    public static void waves(int wave){
-        System.out.println("wave:"+wave);
+
+    public static void waves(int wave) {
+        System.out.println("wave:" + wave);
         //Je nach wave unterschiedliche Gegner für die jeweilige Runde spawnen
-            switch(wave){
-                case 1:
-        for (int i = 0; i < 5; i++) {
-        Enemy.Standard.add(new Enemy(0.2,0,50,5,0,490,null,"Standard"));     
-        }                    
+        switch (wave) {
+            case 1:
+                for (int i = 0; i < 5; i++) {
+                    Enemy.Standard.add(new Enemy(0.2, 0, 50, 5, 0, 490, null, "Standard"));
+                }
                 break;
-                case 2:
-                    for (int i = 0; i < 4; i++) {
-        Enemy.Standard.add(new Enemy(0.2,0,50,5,0,490,null,"Standard"));                          
-                    }
-                    for (int i = 0; i < 2; i++) {
-        Enemy.Tank.add(new Enemy(0.8,0,80,5,0,490,null,"Tank"));                          
-                    }
+            case 2:
+                for (int i = 0; i < 4; i++) {
+                    Enemy.Standard.add(new Enemy(0.2, 0, 50, 5, 0, 490, null, "Standard"));
+                }
+                for (int i = 0; i < 2; i++) {
+                    Enemy.Tank.add(new Enemy(0.8, 0, 80, 5, 0, 490, null, "Tank"));
+                }
                 break;
-                case 3:
-                    System.out.println("yayyyyy");
+            case 3:
+                System.out.println("yayyyyy");
                 break;
-                case 4:
+            case 4:
                 break;
-                case 5:
+            case 5:
                 break;
-                case 6:
+            case 6:
                 break;
-                case 7:
+            case 7:
                 break;
-                case 8:
+            case 8:
                 break;
-                case 9:
+            case 9:
                 break;
-                case 10:
-                break;                
-            }          
-                }            
-            
-        
+            case 10:
+                break;
+        }
+    }
 
-
-   
-        
-    
 //Nächstes Tile bestimmen    
-    public static Tiles getNextTile (int old) {
+    public static Tiles getNextTile(int old) {
         for (int i = 0; i < lilM.length; i++) {
             for (int j = 0; j < lilM[i].length; j++) {
-                if (lilM[i][j].getID() == old+1) {                   
-                    return lilM[i][j]; 
+                if (lilM[i][j].getID() == old + 1) {
+                    return lilM[i][j];
                 }
             }
         }

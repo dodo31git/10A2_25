@@ -8,12 +8,17 @@ package main;
  *
  * @author guest-xvollm
  */
+
+//erstellung der Attribute
 public class Tiles {
     private int x;
     private int y;
     private int ID;
     private boolean isPlaceble;
-    public int id;
+
+    
+    // erstellung des constructors
+ 
     public Tiles(int x, int y, int ID, boolean isPlaceble) {
         this.x = x;
         this.y = y;
@@ -21,10 +26,12 @@ public class Tiles {
         this.isPlaceble = isPlaceble;
     }
 
+    //Erstellung der Methoden 
+    
     public int getX() {
         return x;
     }
-
+    
     public void setX(int x) {
         this.x = x;
     }

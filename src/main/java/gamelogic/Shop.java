@@ -4,12 +4,11 @@ package gamelogic;
 
 public class Shop {
     
-    int money, flowers, mango;
+    int money, flowers;
 
-    public Shop(int money, int flowers, int mango) {
+    public Shop(int money, int flowers) {
         this.money = money;
         this.flowers = flowers;
-        this.mango = mango;
     }
 
     public int getMoney() {
@@ -26,13 +25,6 @@ public class Shop {
 
     public void setFlowers(int flowers) {
         this.flowers = flowers;
-    }
-    public int getMango() {
-        return mango;
-    }
-
-    public void setMango(int mango) {
-        this.mango = mango;
     }
     
 }
