@@ -6,14 +6,15 @@ import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import gamelogic.Ticks;
 import main.Tiles;
+
 public class Tower extends GameAsset {
     
     Enemy enemy = Enemy.Enemy;
-    static int[][] u = {{500,3,20,2,3,0},{600,3,30,4,4,0},{1000,4,40,5,7,0}};
-    int upgradeCost, upgradeCostFlowers, damage, fireRate, range, level, modef;
+    // Standard, Fast, Tank, Weg
+    static int[][] u = {{500,3,20,2,3},{600,3,30,4,4},{1000,4,40,5,7}};
+    int upgradeCost, upgradeCostFlowers, damage, fireRate, range, level;
     static int money = 5000;
     static int flowers = 20;
-    static int mango = 2;
     static int i = 0;
     static int dist = 5;
     public static ArrayList<Tower> Towers1 = new ArrayList<>();
@@ -26,7 +27,6 @@ public class Tower extends GameAsset {
         this.fireRate = 2;
         this.range = 3;
         this.level = 0;
-        this.modef = 0;
         
     }
 
@@ -44,7 +44,6 @@ public class Tower extends GameAsset {
     // prüfen ob gegner innerhalb der towerrange existieren
     public boolean Enemyinrange(Tower tower){
         boolean g = false;
-        // verschiedene
         for (Enemy e : Enemy.Standard) {
                 if(Math.sqrt((e.getX()-tower.getX()) * (e.getX()-tower.getX()) + (e.getY()-tower.getY()) * (e.getY()-tower.getY())) <= tower.range){
                     g = true;
@@ -113,8 +112,8 @@ public class Tower extends GameAsset {
                     }
                 }
             }
-        }
-        // einen der gegener auf dem feld auswählen
+            
+       // }
         for (Enemy e : b) {
             if (e.getHealthpoints()>c){
                 c = e.getHealthpoints();
@@ -144,20 +143,12 @@ public class Tower extends GameAsset {
     
     // tower die gegner beschädigen lassen
     public void shoot (Tower tower) {
-        Enemy en = farestEnemy(tower);
-        if (Enemyinrange(tower) & tower.modef == 0) {
-            en.takeDamage(tower.damage);
-        }
-        if (Enemyinrange(tower) & tower.modef == 1 /* & en.freeze == 0 */) {
-            //en.takeDmageandFreeze(tower.damage/5);
-        }
-        if(Enemyinrange(tower) & tower.modef == 1 /* & en.freeze != 0*/){
+        if (Enemyinrange(tower)) {
+            Enemy en = farestEnemy(tower);
             en.takeDamage(tower.damage);
         }
     }
     
-    
-    // erstellen eines neuen towers beim placen
     static public void place (int x, int y){
         Tower k = new Tower(x, y, null, "T"+i+"");
         i = i+1;

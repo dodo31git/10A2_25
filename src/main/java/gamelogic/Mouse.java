@@ -35,7 +35,6 @@ public class Mouse {
         if(x>=1680 & x<=1980 & y>=350 & y<=645){
             placingopen3 = true;
         }
-        // klickoptionen innerhalb des upgrademenüs
         if(upgradeopen){
             for (Tower t : Tower.Towers1) {
                 // anklicken eines towers mit gewisser toleranzschwelle

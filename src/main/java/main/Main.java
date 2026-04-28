@@ -29,8 +29,9 @@ public class Main {
     public static void main(String[] args) {
 //Vorbereitung Map Erstlleung
         // TODO code application logic here     
-        Ticks m = new Ticks();
+        //Ticks m = new Ticks();
         JFrame f = new JFrame();
+        f.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         f.setLayout(null);
         f.setSize(1920, 1080);
         f.add(c);

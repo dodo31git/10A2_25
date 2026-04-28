@@ -620,9 +620,7 @@ public class lilC extends JPanel {
         
         g.drawImage(B2, 1390, 870, 275, 160, this);
         g.drawImage(B3, 1645, 870, 275, 160, this);
-        
-        //gegner
-        
+     
    
        
        
